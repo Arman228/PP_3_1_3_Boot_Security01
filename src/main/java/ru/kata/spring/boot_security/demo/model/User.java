@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 @Setter
 @Getter
@@ -22,7 +23,9 @@ public class User implements UserDetails {
     private int id;
     @Column(name = "name")
     private String username;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "email")
     private String email;
     private String password;
 
@@ -37,7 +40,7 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
-    public User(String name, String surname, String email) {
+    public User(int id, String name, String surname, String email, String abc, String abc1, List<Role> setRole) {
     }
 
     @Override
@@ -73,5 +76,8 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setRoles(Set<Role> strings) {
     }
 }

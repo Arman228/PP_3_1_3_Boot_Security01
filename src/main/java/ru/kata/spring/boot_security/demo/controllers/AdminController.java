@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @RestController
@@ -12,13 +13,15 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 public class AdminController {
     @Autowired
     private UserService userService;
+
+    private RoleService service;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/admin")
     public String userList(@ModelAttribute("users") Model model) {
         model.addAttribute("allUsers", userService.getAllUsers());
-        model.addAttribute("listRolls", userService.getAllRoles());
+        model.addAttribute("listRolls", service.getAllRoles());
         return "admin";
     }
 
@@ -28,12 +31,12 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping
-    public String addUsers(@ModelAttribute("users") User user, @RequestParam("roles_id") String role_id) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(userService.findRolesById(role_id));
-        return "redirect:/admin";                                                                      // прописать метод добавления
-    }
+//    @PostMapping
+//    public String addUsers(@ModelAttribute("users") User user, @RequestParam("roles_id") String role_id) {
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setRoles(service.(role_id));
+//        return "redirect:/admin";                                                                      // прописать метод добавления
+//    }
 
     @PatchMapping
     public String updateUsers(@RequestParam("id") int id, @ModelAttribute("users") User user,

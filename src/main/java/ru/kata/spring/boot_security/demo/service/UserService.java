@@ -4,31 +4,29 @@ package ru.kata.spring.boot_security.demo.service;
 
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
-public interface UserService  {
+public interface UserService extends UserDetailsService {
     void add(User user);
 
     User getById(int id);
 
     void delete(int id);
 
-    void edit( User user);
+    void edit( Integer id, User user);
 
     public List<User> getAllUsers();
 
-    public List<Role> getAllRoles();
-
-    void addRolle(Role role);
+   public User showUser(Integer id);
 
 
-    public Set<Role> findRolesById(String RoleIds);
-
-
+    Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles);
 }
 
 

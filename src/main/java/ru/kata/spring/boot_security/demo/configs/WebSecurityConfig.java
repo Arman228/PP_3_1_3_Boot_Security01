@@ -23,8 +23,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SuccessUserHandler successUserHandler;
 
-    @Autowired
-    private UserDetailsService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,11 +44,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userService);
-        authenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-        return authenticationProvider;
-    }
+
 }
